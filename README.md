@@ -81,7 +81,7 @@ ORDER BY revenue DESC
 LIMIT 5;
 ```
 
-Push aggreagate result form HAWQ to HDFS via Writable table
+Total spend per customer. Result written to HDFS via writable table
 
 ```
 INSERT INTO customer_spend
