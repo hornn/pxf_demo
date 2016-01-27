@@ -1,5 +1,5 @@
 # Demo Instructions
-## Prerequsites
+## Prerequisites
 1. Hdfs, Hive, HBase setup
 2. HAWQ/PXF (https://github.com/apache/incubator-hawq) setup
 
@@ -39,18 +39,18 @@ sh create_hbase.sh
 3. Readable table for Hive table
 4. Writable table for HDFS file
 
-To create HAWQ tables:
+###To create HAWQ tables:
 ```
 createdb demo
 psql -d demo -f create_hawq_tables.sql
 ```
 
-Join between all 3 readable table and a local HAWQ table.
-HBase table query with filter on text/int fields
-Hive table query with filter on partition fields
-Write the results into HDFS table
+Join between all 3 readable table and a local HAWQ table.  
+HBase table query with filter on text/int fields  
+Hive table query with filter on partition fields  
+Write the results into HDFS table  
 
-To run queries via HAWQ:
+###To run queries via HAWQ:
 
 Cleanup output on HDFS
 ```
