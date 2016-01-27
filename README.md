@@ -5,9 +5,11 @@
 
 ## Tables
 
-1. 1 HDFS file
-2. 1 HBase table 
-3. 1 Hive table with partitions
+1. 1 HDFS file (transaction data)
+2. 1 HBase table (product data)
+3. 1 Hive table with partitions (customer data)
+
+## In HDFS
 To create HDFS file and data:
 ```
 sh create_hdfs.sh
