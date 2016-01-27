@@ -32,6 +32,10 @@ LOCATION ('pxf://localhost:51200/demo.customers?PROFILE=Hive')
 FORMAT 'CUSTOM' (formatter='pxfwritable_import');
 
 
-
-
-
+-- create writable hdfs table (customer_spend)
+DROP EXTERNAL TABLE IF EXISTS customer_spend;
+CREATE WRITABLE EXTERNAL TABLE customer_spend (
+    customer_name text,
+    total   int )
+LOCATION ('pxf://localhost:51200/pxf_demo/customer_spend?PROFILE=HdfsTextSimple')
+FORMAT 'CSV' (delimiter=',');

@@ -10,13 +10,34 @@ ORDER BY number_of_purchases DESC
 LIMIT 10;
 
 
+-- Top 10 Customers by revenue, who bought items below 50$
+
+SELECT customers.first_name|| ' ' || customers.last_name as customer_name, SUM(products."product:price") as revenue
+FROM products, customers, transactions
+WHERE products.recordkey = transactions.product_id
+AND   customers.customer_id = transactions.customer_id
+AND   products."product:price" < 50
+GROUP BY customers.customer_id, customers.first_name, customers.last_name
+ORDER BY revenue DESC
+LIMIT 10;
+
+
+-- Push aggreagate result form HAWQ to HDFS via Writable table
+
+INSERT INTO customer_spend
+SELECT customers.first_name|| ' ' || customers.last_name as customer_name, SUM(products."product:price") as revenue
+FROM products, customers, transactions
+WHERE products.recordkey = transactions.product_id
+AND   customers.customer_id = transactions.customer_id
+GROUP BY customers.customer_id, customers.first_name, customers.last_name
+ORDER BY revenue DESC;
+
 
 -- Most popular category by country
 
-
 SELECT category, country, b.max_cat_per_country FROM
 (
-selECT
+SELECT
 max(count_cate_per_country) over(partition by country) as max_cat_per_country,
 a.count_cate_per_country,
  category, country FROM (
@@ -33,14 +54,3 @@ WHERE a.count_cate_per_country = a.rnum_cate_per_country
 ) b
 
 WHERE b.max_cat_per_country = b.count_cate_per_country;
-
-
--- Top 10 Customers by revenue, who bought items below 50$ 
-SELECT customers.first_name|| ' ' || customers.last_name as customer_name, SUM(products."product:price") as revenue
-FROM products, customers, transactions
-WHERE products.recordkey = transactions.product_id
-AND   customers.customer_id = transactions.customer_id
-AND   products."product:price" < 50
-GROUP BY customers.customer_id, customers.first_name, customers.last_name
-ORDER BY revenue DESC 
-LIMIT 10;
