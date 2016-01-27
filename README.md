@@ -50,6 +50,11 @@ Write the results into HDFS table
 
 To run queries via HAWQ:
 
+Cleanup output on HDFS
+```
+hadoop fs -rmr /pxf_demo/customer_spend
+```
+
 Top 5 products of a specific country (Belgium)
 ```
 SELECT count(*) AS number_of_purchases, products."product:name"
